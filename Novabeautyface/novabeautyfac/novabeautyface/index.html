@@ -63,41 +63,22 @@ body{
 
 .hotspot{
   position:absolute;
-  width:15px;
-  height:15px;
+  width:14px;
+  height:14px;
   border-radius:50%;
   background:#78845e;
   border:3px solid rgba(255,255,255,.95);
   box-shadow:0 2px 8px rgba(0,0,0,.25);
   transform:translate(-50%,-50%);
   z-index:5;
-  cursor:grab;
-  touch-action:none;
+  cursor:pointer;
 }
 
 .hotspot.active{
-  width:20px;
-  height:20px;
+  width:19px;
+  height:19px;
   background:#b49b62;
   box-shadow:0 0 0 5px rgba(180,155,98,.18);
-}
-
-.edit-mode{
-  margin:14px 0;
-  padding:12px;
-  border-radius:14px;
-  background:#ebe6da;
-  text-align:center;
-  font-size:12px;
-  color:#666;
-}
-
-.edit-mode strong{
-  color:#4d593e;
-}
-
-button{
-  font-family:inherit;
 }
 
 .info{
@@ -129,28 +110,6 @@ button{
   color:#fff;
   font-size:15px;
   margin-top:10px;
-}
-
-.save-btn{
-  width:100%;
-  border:0;
-  padding:13px;
-  border-radius:14px;
-  background:#b49b62;
-  color:#fff;
-  font-size:14px;
-  margin-top:10px;
-}
-
-.reset-btn{
-  width:100%;
-  border:1px solid #aaa;
-  padding:11px;
-  border-radius:14px;
-  background:#fff;
-  color:#666;
-  font-size:13px;
-  margin-top:8px;
 }
 
 .form{
@@ -189,8 +148,12 @@ button{
   font-size:15px;
 }
 
-.hidden{
-  display:none;
+.note{
+  text-align:center;
+  font-size:12px;
+  color:#888;
+  margin-top:15px;
+  line-height:1.8;
 }
 </style>
 </head>
@@ -206,33 +169,18 @@ button{
 
   <div class="face-box" id="faceBox">
 
-    <img src="face.jpg" id="faceImage" alt="Nova Beauty">
+    <img src="face.jpg" alt="Nova Beauty">
 
-    <!-- نقاط -->
-    <div class="hotspot" data-id="forehead" data-name="پیشانی و ابروها"></div>
-    <div class="hotspot" data-id="frown" data-name="خط اخم"></div>
-    <div class="hotspot" data-id="crow" data-name="پنجه‌کلاغی / دور چشم"></div>
-    <div class="hotspot" data-id="cheek" data-name="گونه"></div>
-    <div class="hotspot" data-id="smileline" data-name="خط خنده"></div>
-    <div class="hotspot" data-id="jaw" data-name="زاویه فک"></div>
-    <div class="hotspot" data-id="chin" data-name="چانه"></div>
-    <div class="hotspot" data-id="lips" data-name="لب"></div>
+    <div class="hotspot" data-id="forehead"></div>
+    <div class="hotspot" data-id="frown"></div>
+    <div class="hotspot" data-id="crow"></div>
+    <div class="hotspot" data-id="cheek"></div>
+    <div class="hotspot" data-id="smileline"></div>
+    <div class="hotspot" data-id="jaw"></div>
+    <div class="hotspot" data-id="chin"></div>
+    <div class="hotspot" data-id="lips"></div>
 
   </div>
-
-  <div class="edit-mode">
-    <strong>تنظیم نقاط:</strong>
-    هر نقطه را با انگشت بگیر و به محل دقیق موردنظر بکش.
-    سپس روی «ذخیره جای نقاط» بزن.
-  </div>
-
-  <button class="save-btn" onclick="savePositions()">
-    ذخیره جای نقاط
-  </button>
-
-  <button class="reset-btn" onclick="resetPositions()">
-    بازگردانی نقاط به حالت اولیه
-  </button>
 
   <div class="info" id="info">
     <h2>یک ناحیه را انتخاب کنید</h2>
@@ -271,6 +219,10 @@ button{
       ارسال درخواست مشاوره
     </button>
 
+  </div>
+
+  <div class="note">
+    برای بررسی دقیق‌تر، عکس‌های موردنیاز هر ناحیه را ارسال کنید.
   </div>
 
 </div>
@@ -326,123 +278,44 @@ const data = {
 };
 
 /* =========================
-   نقاط اولیه
-   درصدی هستند
-   ========================= */
-
-const defaultPositions = {
-
-  forehead:{x:50,y:25},
-  frown:{x:50,y:35},
-  crow:{x:72,y:40},
-  cheek:{x:67,y:51},
-  smileline:{x:69,y:59},
-  jaw:{x:64,y:78},
-  chin:{x:50,y:83},
-  lips:{x:50,y:66}
-
-};
-
-const faceBox = document.getElementById("faceBox");
-const hotspots = document.querySelectorAll(".hotspot");
-
-/* =========================
-   بارگذاری موقعیت‌های ذخیره‌شده
+   مختصات نهایی تنظیم‌شده توسط شما
 ========================= */
 
-let savedPositions =
-  JSON.parse(localStorage.getItem("novaHotspots")) ||
-  defaultPositions;
+const positions = {
+
+  forehead:{x:51.9264,y:27.5217},
+
+  frown:{x:49.893,y:42.3392},
+
+  crow:{x:86.0659,y:46.5114},
+
+  cheek:{x:78.1731,y:60.4054},
+
+  smileline:{x:65.4377,y:65.823},
+
+  jaw:{x:80.3136,y:71.9581},
+
+  chin:{x:49.3044,y:84.5513},
+
+  lips:{x:49.9465,y:72.5322}
+
+};
 
 /* =========================
    قرار دادن نقاط
 ========================= */
 
-function setPosition(point,x,y){
-
-  point.style.left = x + "%";
-  point.style.top = y + "%";
-
-}
-
-hotspots.forEach(point => {
+document.querySelectorAll(".hotspot").forEach(point => {
 
   const id = point.dataset.id;
 
-  if(savedPositions[id]){
-    setPosition(
-      point,
-      savedPositions[id].x,
-      savedPositions[id].y
-    );
+  if(positions[id]){
+
+    point.style.left = positions[id].x + "%";
+
+    point.style.top = positions[id].y + "%";
+
   }
-
-});
-
-/* =========================
-   جابه‌جایی با انگشت
-========================= */
-
-let dragging = null;
-
-hotspots.forEach(point => {
-
-  point.addEventListener("pointerdown", function(e){
-
-    e.preventDefault();
-
-    dragging = point;
-
-    point.classList.add("active");
-
-    point.setPointerCapture(e.pointerId);
-
-  });
-
-  point.addEventListener("pointermove", function(e){
-
-    if(dragging !== point) return;
-
-    const rect = faceBox.getBoundingClientRect();
-
-    let x =
-      ((e.clientX - rect.left) / rect.width) * 100;
-
-    let y =
-      ((e.clientY - rect.top) / rect.height) * 100;
-
-    x = Math.max(2, Math.min(98, x));
-    y = Math.max(2, Math.min(98, y));
-
-    setPosition(point,x,y);
-
-  });
-
-  point.addEventListener("pointerup", function(){
-
-    dragging = null;
-
-    point.classList.remove("active");
-
-  });
-
-  point.addEventListener("pointercancel", function(){
-
-    dragging = null;
-
-    point.classList.remove("active");
-
-  });
-
-  /* لمس معمولی برای نمایش اطلاعات */
-
-  point.addEventListener("click", function(e){
-
-    if(dragging) return;
-
-    showInfo(point.dataset.id);
-
-  });
 
 });
 
@@ -450,92 +323,38 @@ hotspots.forEach(point => {
    نمایش اطلاعات
 ========================= */
 
-function showInfo(id){
+document.querySelectorAll(".hotspot").forEach(point => {
 
-  const item = data[id];
-
-  if(!item) return;
-
-  hotspots.forEach(p =>
-    p.classList.remove("active")
-  );
-
-  const selected =
-    document.querySelector(
-      `.hotspot[data-id="${id}"]`
-    );
-
-  if(selected)
-    selected.classList.add("active");
-
-  document.getElementById("info").innerHTML = `
-
-    <h2>${item.title}</h2>
-
-    <p>${item.text}</p>
-
-    <button
-      class="consult-btn"
-      onclick="openConsult('${item.title}')">
-      درخواست مشاوره برای این ناحیه
-    </button>
-
-  `;
-
-}
-
-/* =========================
-   ذخیره نقاط
-========================= */
-
-function savePositions(){
-
-  const positions = {};
-
-  hotspots.forEach(point => {
-
-    positions[point.dataset.id] = {
-
-      x: parseFloat(point.style.left),
-
-      y: parseFloat(point.style.top)
-
-    };
-
-  });
-
-  localStorage.setItem(
-    "novaHotspots",
-    JSON.stringify(positions)
-  );
-
-  alert("جای نقاط با موفقیت ذخیره شد.");
-
-}
-
-/* =========================
-   بازگردانی
-========================= */
-
-function resetPositions(){
-
-  localStorage.removeItem("novaHotspots");
-
-  hotspots.forEach(point => {
+  point.addEventListener("click", function(){
 
     const id = point.dataset.id;
 
-    setPosition(
-      point,
-      defaultPositions[id].x,
-      defaultPositions[id].y
-    );
+    const item = data[id];
+
+    if(!item) return;
+
+    document.querySelectorAll(".hotspot")
+      .forEach(p => p.classList.remove("active"));
+
+    point.classList.add("active");
+
+    document.getElementById("info").innerHTML = `
+
+      <h2>${item.title}</h2>
+
+      <p>${item.text}</p>
+
+      <button
+        class="consult-btn"
+        onclick="openConsult('${item.title}')">
+        درخواست مشاوره برای این ناحیه
+      </button>
+
+    `;
 
   });
 
-  alert("نقاط به حالت اولیه برگشتند.");
-
-}
+});
 
 /* =========================
    فرم مشاوره
@@ -555,7 +374,7 @@ function openConsult(area){
 }
 
 /* =========================
-   ارسال فرم
+   ثبت درخواست
 ========================= */
 
 function submitConsultation(){
@@ -569,24 +388,19 @@ function submitConsultation(){
   const area =
     document.getElementById("area").value;
 
-  const message =
-    document.getElementById("message").value.trim();
-
   if(!name || !phone || !area){
 
-    alert("لطفاً نام، شماره موبایل و ناحیه موردنظر را وارد کنید.");
+    alert(
+      "لطفاً نام، شماره موبایل و ناحیه موردنظر را وارد کنید."
+    );
 
     return;
 
   }
 
-  /*
-    اتصال واقعی به تلگرام را بعداً اضافه می‌کنیم.
-  */
-
   alert(
     "درخواست شما ثبت شد.\n\n" +
-    "در نسخه بعدی، اطلاعات و عکس‌ها مستقیماً برای شما ارسال می‌شوند."
+    "اتصال مستقیم درخواست‌ها به تلگرام در مرحله بعد اضافه می‌شود."
   );
 
 }
@@ -595,38 +409,3 @@ function submitConsultation(){
 
 </body>
 </html>
-<button onclick="showSavedPositions()" class="save-btn">
-نمایش مختصات نقاط
-</button>
-
-<script>
-function showSavedPositions(){
-
-  const positions =
-    JSON.parse(localStorage.getItem("novaHotspots"));
-
-  if(!positions){
-    alert("هنوز مختصات ذخیره نشده.");
-    return;
-  }
-
-  let text = "";
-
-  for(const id in positions){
-
-    text +=
-      id +
-      " : x=" +
-      positions[id].x +
-      ", y=" +
-      positions[id].y +
-      "\n";
-
-  }
-
-  prompt(
-    "این مختصات را کپی کن و برای من بفرست:",
-    text
-  );
-}
-</script>
