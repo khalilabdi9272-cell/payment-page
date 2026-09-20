@@ -595,3 +595,38 @@ function submitConsultation(){
 
 </body>
 </html>
+<button onclick="showSavedPositions()" class="save-btn">
+نمایش مختصات نقاط
+</button>
+
+<script>
+function showSavedPositions(){
+
+  const positions =
+    JSON.parse(localStorage.getItem("novaHotspots"));
+
+  if(!positions){
+    alert("هنوز مختصات ذخیره نشده.");
+    return;
+  }
+
+  let text = "";
+
+  for(const id in positions){
+
+    text +=
+      id +
+      " : x=" +
+      positions[id].x +
+      ", y=" +
+      positions[id].y +
+      "\n";
+
+  }
+
+  prompt(
+    "این مختصات را کپی کن و برای من بفرست:",
+    text
+  );
+}
+</script>
