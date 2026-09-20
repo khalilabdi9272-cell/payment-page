@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nova Beauty | آنالیز و مشاوره زیبایی</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -15,7 +17,7 @@
 body{
   font-family:Tahoma,Arial,sans-serif;
   background:#f7f3ec;
-  color:#30352d;
+  color:#34382f;
   line-height:1.9;
 }
 
@@ -27,43 +29,42 @@ body{
 
 header{
   text-align:center;
-  padding:28px 15px 18px;
+  padding:25px 15px 12px;
 }
 
 .logo{
-  width:72px;
-  height:72px;
+  width:62px;
+  height:62px;
   border-radius:50%;
   margin:auto;
   background:#6f7659;
-  color:#fff;
+  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:25px;
+  font-size:23px;
   font-weight:bold;
   box-shadow:0 8px 25px rgba(80,85,60,.18);
 }
 
 h1{
-  margin-top:12px;
-  font-size:25px;
+  margin-top:10px;
+  font-size:24px;
   color:#555d43;
 }
 
 .subtitle{
   font-size:13px;
-  color:#77776e;
-  margin-top:4px;
+  color:#77766e;
 }
 
 .card{
   background:#fffdf9;
+  border:1px solid #eee8dc;
   border-radius:22px;
   padding:20px;
   margin:15px 0;
   box-shadow:0 7px 25px rgba(70,65,50,.08);
-  border:1px solid #eee8dc;
 }
 
 .card h2{
@@ -74,41 +75,73 @@ h1{
 
 .intro{
   text-align:center;
-  font-size:14px;
-  color:#66665f;
+  color:#68675f;
+  font-size:13px;
 }
 
-.face-box{
-  text-align:center;
-  padding:10px 0 0;
-}
+/* FACE */
 
-.face{
+.face-wrapper{
   width:100%;
-  max-width:330px;
+  max-width:390px;
+  margin:18px auto 0;
+}
+
+.face-stage{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  border-radius:25px;
+  background:#eee8dc;
+  box-shadow:0 8px 30px rgba(70,65,50,.10);
+}
+
+.face-stage img{
+  display:block;
+  width:100%;
   height:auto;
 }
 
-.area{
+/* SMALL TOUCH POINTS */
+
+.hotspot{
+  position:absolute;
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  background:#6f7659;
+  border:3px solid rgba(255,255,255,.95);
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.22),
+    0 0 0 3px rgba(111,118,89,.20);
+  transform:translate(-50%,-50%);
   cursor:pointer;
-  fill:#6f7659;
-  fill-opacity:.18;
-  stroke:#6f7659;
-  stroke-width:2;
+  z-index:5;
   transition:.2s;
 }
 
-.area:hover,
-.area:active{
-  fill-opacity:.5;
+.hotspot:active,
+.hotspot.active{
+  transform:translate(-50%,-50%) scale(1.45);
+  background:#a28c51;
+  box-shadow:
+    0 3px 12px rgba(0,0,0,.25),
+    0 0 0 5px rgba(162,140,81,.20);
 }
 
-.tip{
-  text-align:center;
-  font-size:12px;
-  color:#85847c;
-  margin-top:4px;
+.hotspot-label{
+  position:absolute;
+  transform:translateX(50%);
+  white-space:nowrap;
+  font-size:9px;
+  color:#5d654a;
+  background:rgba(255,253,249,.92);
+  padding:2px 6px;
+  border-radius:8px;
+  pointer-events:none;
 }
+
+/* RESULT */
 
 .result{
   display:none;
@@ -116,24 +149,44 @@ h1{
   border-radius:18px;
   padding:18px;
   margin-top:18px;
+  animation:fade .25s ease;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .result h3{
   color:#596145;
-  margin-bottom:8px;
-  font-size:19px;
+  font-size:20px;
+  margin-bottom:9px;
 }
 
 .result p{
   font-size:14px;
-  color:#555;
+  color:#55554f;
+}
+
+.section-title{
+  font-size:14px;
+  color:#5d654a;
+  font-weight:bold;
+  margin-top:15px;
+  margin-bottom:5px;
 }
 
 .tags{
   display:flex;
   flex-wrap:wrap;
   gap:7px;
-  margin-top:12px;
+  margin-top:10px;
 }
 
 .tag{
@@ -144,6 +197,20 @@ h1{
   font-size:12px;
 }
 
+.photo-box{
+  background:#fffdf9;
+  border:1px solid #e5dfd2;
+  border-radius:14px;
+  padding:12px;
+  margin-top:12px;
+}
+
+.photo-box ul{
+  padding-right:20px;
+  font-size:13px;
+  color:#5f5e57;
+}
+
 .btn{
   display:block;
   width:100%;
@@ -152,7 +219,7 @@ h1{
   padding:13px;
   margin-top:13px;
   background:#6f7659;
-  color:#fff;
+  color:white;
   font-size:15px;
   font-family:inherit;
   cursor:pointer;
@@ -163,19 +230,59 @@ h1{
   color:#555d43;
 }
 
-.info{
-  font-size:13px;
-  color:#65645d;
+.btn.gold{
+  background:#a28c51;
 }
 
 .warning{
   background:#faf6e9;
   border-right:4px solid #b4a46a;
-  padding:12px;
+  padding:11px;
   border-radius:10px;
   font-size:12px;
   color:#625d4e;
   margin-top:12px;
+}
+
+/* CONSULTATION FORM */
+
+.form-group{
+  margin-top:12px;
+}
+
+.form-group label{
+  display:block;
+  font-size:13px;
+  color:#5d654a;
+  margin-bottom:5px;
+}
+
+.form-group input,
+.form-group textarea{
+  width:100%;
+  border:1px solid #ddd7ca;
+  background:#fff;
+  border-radius:12px;
+  padding:11px;
+  font-family:inherit;
+  font-size:14px;
+  outline:none;
+}
+
+.form-group textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+  border-color:#8a916f;
+}
+
+.file-input{
+  width:100%;
+  font-family:inherit;
+  font-size:12px;
 }
 
 .footer{
@@ -185,339 +292,778 @@ h1{
   font-size:11px;
 }
 
-.gold{
+.gold-text{
   color:#a28c51;
 }
 
-.small-title{
-  font-size:14px;
-  color:#5d654a;
-  font-weight:bold;
-  margin-top:14px;
+.hidden{
+  display:none !important;
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
+
   <div class="logo">N</div>
+
   <h1>Nova Beauty</h1>
-  <div class="subtitle">آنالیز اولیه و مشاوره زیبایی صورت</div>
+
+  <div class="subtitle">
+    آنالیز اولیه و مشاوره زیبایی
+  </div>
+
 </header>
 
 <main class="container">
 
-  <section class="card">
-    <h2>از کدام ناحیه شروع کنیم؟</h2>
-    <p class="intro">
-      ناحیه موردنظر صورت را انتخاب کنید تا اطلاعات اولیه،
-      گزینه‌های رایج درمانی و نکات مهم آن را ببینید.
-    </p>
+<section class="card">
 
-    <div class="face-box">
+  <h2>ناحیه موردنظر را انتخاب کنید</h2>
 
-      <svg class="face" viewBox="0 0 300 420"
-           xmlns="http://www.w3.org/2000/svg">
+  <p class="intro">
+    روی نقطه موردنظر روی صورت بزنید تا اطلاعات مربوط به آن ناحیه نمایش داده شود.
+  </p>
 
-        <!-- صورت -->
-        <path d="M150 25
-                 C90 25 55 75 55 155
-                 C55 250 75 330 150 375
-                 C225 330 245 250 245 155
-                 C245 75 210 25 150 25Z"
-              fill="#f1d8c5"
-              stroke="#c7aa94"
-              stroke-width="3"/>
+  <div class="face-wrapper">
 
-        <!-- مو -->
-        <path d="M58 140
-                 C45 75 80 15 150 15
-                 C220 15 255 75 242 140
-                 C225 95 200 70 150 68
-                 C100 70 75 95 58 140Z"
-              fill="#55504b"/>
+    <div class="face-stage">
 
-        <!-- ابروها -->
-        <path d="M88 130 Q112 115 132 130"
-              fill="none" stroke="#55504b" stroke-width="7"
-              stroke-linecap="round"/>
-        <path d="M168 130 Q188 115 212 130"
-              fill="none" stroke="#55504b" stroke-width="7"
-              stroke-linecap="round"/>
+      <!--
+      عکس واقعی چهره باید با نام face.jpg
+      در همین پوشه قرار بگیرد.
+      -->
 
-        <!-- چشم -->
-        <path d="M90 150 Q110 137 130 150 Q110 164 90 150"
-              fill="#fff" stroke="#555" stroke-width="2"/>
-        <circle cx="110" cy="150" r="5" fill="#555"/>
+      <img src="face.jpg" alt="Nova Beauty Face">
 
-        <path d="M170 150 Q190 137 210 150 Q190 164 170 150"
-              fill="#fff" stroke="#555" stroke-width="2"/>
-        <circle cx="190" cy="150" r="5" fill="#555"/>
-
-        <!-- بینی -->
-        <path d="M150 145 L140 215 Q150 225 160 215"
-              fill="none" stroke="#9d7966" stroke-width="3"/>
-
-        <!-- لب -->
-        <path d="M115 260 Q150 242 185 260 Q150 285 115 260Z"
-              fill="#c98583" stroke="#9d6565" stroke-width="2"/>
-
-        <!-- چانه -->
-        <ellipse cx="150" cy="310" rx="35" ry="25"
-                 fill="#e7c9b6"/>
-
-        <!-- نواحی قابل انتخاب -->
-
-        <!-- پیشانی -->
-        <rect class="area"
-              onclick="showArea('پیشانی')"
-              x="105" y="78" width="90" height="48" rx="20"/>
-
-        <!-- اخم -->
-        <ellipse class="area"
-                 onclick="showArea('خط اخم')"
-                 cx="150" cy="128" rx="24" ry="17"/>
-
-        <!-- ابرو -->
-        <ellipse class="area"
-                 onclick="showArea('ابرو')"
-                 cx="150" cy="113" rx="70" ry="12"/>
-
-        <!-- دور چشم -->
-        <ellipse class="area"
-                 onclick="showArea('خطوط دور چشم')"
-                 cx="110" cy="153" rx="38" ry="27"/>
-
-        <ellipse class="area"
-                 onclick="showArea('خطوط دور چشم')"
-                 cx="190" cy="153" rx="38" ry="27"/>
-
-        <!-- بینی -->
-        <rect class="area"
-              onclick="showArea('بینی')"
-              x="132" y="150" width="36" height="75" rx="15"/>
-
-        <!-- گونه -->
-        <ellipse class="area"
-                 onclick="showArea('گونه')"
-                 cx="100" cy="205" rx="43" ry="38"/>
-
-        <ellipse class="area"
-                 onclick="showArea('گونه')"
-                 cx="200" cy="205" rx="43" ry="38"/>
-
-        <!-- خط خنده -->
-        <path class="area"
-              onclick="showArea('خط خنده')"
-              d="M105 220 Q110 250 132 258
-                 Q110 248 102 225Z"/>
-
-        <path class="area"
-              onclick="showArea('خط خنده')"
-              d="M195 220 Q190 250 168 258
-                 Q190 248 198 225Z"/>
-
-        <!-- لب -->
-        <ellipse class="area"
-                 onclick="showArea('لب')"
-                 cx="150" cy="260" rx="48" ry="30"/>
-
-        <!-- چانه -->
-        <ellipse class="area"
-                 onclick="showArea('چانه')"
-                 cx="150" cy="310" rx="48" ry="35"/>
-
-        <!-- فک -->
-        <path class="area"
-              onclick="showArea('خط فک')"
-              d="M78 270 Q85 330 150 365
-                 Q215 330 222 270
-                 Q210 330 150 350
-                 Q90 330 78 270Z"/>
-
-      </svg>
-
-      <div class="tip">
-        روی ناحیه موردنظر بزنید
-      </div>
-
-    </div>
-
-    <div id="result" class="result">
-      <h3 id="resultTitle"></h3>
-      <p id="resultText"></p>
-      <div id="tags" class="tags"></div>
-      <button class="btn" onclick="consult()">
-        درخواست مشاوره
+      <!-- پیشانی -->
+      <button
+        class="hotspot"
+        style="left:50%;top:23%;"
+        onclick="showArea('forehead',this)"
+        aria-label="پیشانی">
       </button>
+
+      <!-- ابرو -->
+      <button
+        class="hotspot"
+        style="left:50%;top:31%;"
+        onclick="showArea('brow',this)"
+        aria-label="ابرو">
+      </button>
+
+      <!-- خط اخم -->
+      <button
+        class="hotspot"
+        style="left:50%;top:34%;"
+        onclick="showArea('frown',this)"
+        aria-label="خط اخم">
+      </button>
+
+      <!-- پنجه کلاغی راست -->
+      <button
+        class="hotspot"
+        style="left:34%;top:37%;"
+        onclick="showArea('crow',this)"
+        aria-label="پنجه کلاغی">
+      </button>
+
+      <!-- پنجه کلاغی چپ -->
+      <button
+        class="hotspot"
+        style="left:66%;top:37%;"
+        onclick="showArea('crow',this)"
+        aria-label="پنجه کلاغی">
+      </button>
+
+      <!-- بینی -->
+      <button
+        class="hotspot"
+        style="left:50%;top:45%;"
+        onclick="showArea('nose',this)"
+        aria-label="بینی">
+      </button>
+
+      <!-- گونه راست -->
+      <button
+        class="hotspot"
+        style="left:34%;top:52%;"
+        onclick="showArea('cheek',this)"
+        aria-label="گونه">
+      </button>
+
+      <!-- گونه چپ -->
+      <button
+        class="hotspot"
+        style="left:66%;top:52%;"
+        onclick="showArea('cheek',this)"
+        aria-label="گونه">
+      </button>
+
+      <!-- خط خنده راست -->
+      <button
+        class="hotspot"
+        style="left:39%;top:59%;"
+        onclick="showArea('smileline',this)"
+        aria-label="خط خنده">
+      </button>
+
+      <!-- خط خنده چپ -->
+      <button
+        class="hotspot"
+        style="left:61%;top:59%;"
+        onclick="showArea('smileline',this)"
+        aria-label="خط خنده">
+      </button>
+
+      <!-- لب -->
+      <button
+        class="hotspot"
+        style="left:50%;top:65%;"
+        onclick="showArea('lips',this)"
+        aria-label="لب">
+      </button>
+
+      <!-- چانه -->
+      <button
+        class="hotspot"
+        style="left:50%;top:75%;"
+        onclick="showArea('chin',this)"
+        aria-label="چانه">
+      </button>
+
+      <!-- فک راست -->
+      <button
+        class="hotspot"
+        style="left:28%;top:68%;"
+        onclick="showArea('jaw',this)"
+        aria-label="زاویه فک">
+      </button>
+
+      <!-- فک چپ -->
+      <button
+        class="hotspot"
+        style="left:72%;top:68%;"
+        onclick="showArea('jaw',this)"
+        aria-label="زاویه فک">
+      </button>
+
     </div>
 
-  </section>
+  </div>
 
+  <div id="result" class="result">
 
-  <section class="card">
-    <h2>آنالیز اولیه صورت</h2>
+    <h3 id="resultTitle"></h3>
 
-    <p class="info">
-      در این بخش می‌توانید برای بررسی اولیه و آموزشی،
-      عکس واضح و بدون فیلتر از صورت خود تهیه کنید.
-    </p>
+    <p id="resultText"></p>
 
-    <button class="btn" onclick="analysisInfo()">
-      شروع آنالیز اولیه
+    <div id="tags" class="tags"></div>
+
+    <div id="photoInfo"></div>
+
+    <button
+      class="btn"
+      onclick="openConsultation()">
+      درخواست مشاوره
     </button>
 
-    <div id="analysis" class="result">
-      <h3>شرایط مناسب عکس</h3>
-      <p>
-        عکس باید از روبه‌رو، با نور مناسب، بدون فیلتر و بدون
-        زاویه شدید باشد. این بررسی صرفاً آموزشی و اولیه است
-        و جایگزین معاینه حضوری توسط پزشک نیست.
-      </p>
+  </div>
+
+</section>
+
+
+<!-- درمان های بوتاکس -->
+
+<section class="card">
+
+  <h2>کاربردهای درمانی بوتاکس</h2>
+
+  <p class="intro">
+    برای مشاهده اطلاعات، گزینه موردنظر را انتخاب کنید.
+  </p>
+
+  <button
+    class="btn secondary"
+    onclick="showTreatment('migraine')">
+    بوتاکس میگرن
+  </button>
+
+  <button
+    class="btn secondary"
+    onclick="showTreatment('underarm')">
+    بوتاکس تعریق زیر بغل
+  </button>
+
+  <div id="treatmentResult" class="result">
+
+    <h3 id="treatmentTitle"></h3>
+
+    <p id="treatmentText"></p>
+
+    <button
+      class="btn"
+      onclick="openConsultation()">
+      درخواست مشاوره
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- مشاوره -->
+
+<section class="card" id="consultationCard">
+
+  <h2>درخواست مشاوره</h2>
+
+  <p class="info">
+    برای ثبت درخواست، اطلاعات زیر را وارد کنید.
+  </p>
+
+  <div class="form-group">
+
+    <label>نام و نام خانوادگی</label>
+
+    <input
+      id="name"
+      type="text"
+      placeholder="نام و نام خانوادگی">
+
+  </div>
+
+
+  <div class="form-group">
+
+    <label>شماره موبایل</label>
+
+    <input
+      id="phone"
+      type="tel"
+      placeholder="09xxxxxxxxx">
+
+  </div>
+
+
+  <div class="form-group">
+
+    <label>ناحیه موردنظر</label>
+
+    <input
+      id="selectedArea"
+      type="text"
+      placeholder="مثلاً گونه، لب، خط خنده">
+
+  </div>
+
+
+  <div class="form-group">
+
+    <label>توضیحات</label>
+
+    <textarea
+      id="message"
+      placeholder="اگر توضیح یا درخواست خاصی دارید بنویسید...">
+    </textarea>
+
+  </div>
+
+
+  <div class="photo-box">
+
+    <div class="section-title">
+      ارسال عکس برای بررسی اولیه
     </div>
-  </section>
 
-
-  <section class="card">
-    <h2>مشاوره زیبایی</h2>
-
-    <p class="info">
-      برای انتخاب روش مناسب، عواملی مثل آناتومی صورت،
-      شدت مشکل، سابقه پزشکی، نوع محصول و هدف فرد باید بررسی شود.
+    <p style="font-size:12px;color:#777;">
+      عکس‌ها باید واضح، با نور مناسب و بدون فیلتر باشند.
     </p>
 
-    <div class="warning">
-      اطلاعات این صفحه جنبه آموزشی دارد. انتخاب روش، نوع محصول
-      و مقدار تزریق باید پس از ارزیابی فرد و توسط پزشک یا
-      فرد دارای صلاحیت قانونی انجام شود.
+    <div class="form-group">
+
+      <label>عکس‌ها</label>
+
+      <input
+        class="file-input"
+        id="photos"
+        type="file"
+        accept="image/*"
+        multiple>
+
     </div>
 
-    <button class="btn secondary" onclick="consult()">
-      درخواست مشاوره تخصصی
-    </button>
-  </section>
+  </div>
+
+
+  <div class="warning">
+
+    اطلاعات این بخش برای بررسی اولیه و آموزشی دریافت می‌شود.
+    نتیجه نهایی به شرایط و ویژگی‌های هر فرد بستگی دارد.
+
+  </div>
+
+
+  <button
+    class="btn gold"
+    onclick="submitConsultation()">
+
+    ثبت درخواست مشاوره
+
+  </button>
+
+</section>
+
 
 </main>
 
 
 <div class="footer">
+
   <div>Nova Beauty</div>
-  <div class="gold">Beauty • Botox • Filler • Mesotherapy</div>
+
+  <div class="gold-text">
+    Beauty • Botox • Filler • Mesotherapy
+  </div>
+
 </div>
 
 
 <script>
 
+
 const data = {
 
-"پیشانی":{
- text:"چین‌های افقی پیشانی معمولاً با فعالیت عضله فرونتالیس ارتباط دارند. در برخی افراد بوتاکس می‌تواند با کاهش موقت فعالیت عضله، ظاهر این خطوط را کاهش دهد.",
- tags:["بوتاکس","چین پیشانی","آنالیز عضلات"]
-},
+  forehead: {
 
-"خط اخم":{
- text:"خطوط بین ابروها معمولاً با فعالیت عضلات ناحیه اخم مرتبط هستند. بوتاکس یکی از روش‌های رایج برای کاهش موقت فعالیت این عضلات است.",
- tags:["بوتاکس","خط اخم","ابرو"]
-},
+    title:"پیشانی و ابروها",
 
-"ابرو":{
- text:"در ناحیه ابرو، ارزیابی تعادل عضلات و فرم طبیعی ابرو اهمیت زیادی دارد. در برخی افراد درمان مناسب می‌تواند به اصلاح ظاهری فرم ابرو کمک کند.",
- tags:["بوتاکس","فرم ابرو","آنالیز عضلات"]
-},
+    text:
+    "برای اصلاح خطوط پیشانی، مخصوصاً خطوط داینامیک که با حرکت عضلات مشخص می‌شوند، تزریق بوتاکس یکی از روش‌های رایج است. این روش می‌تواند به کاهش ظاهر خطوط پیشانی و ایجاد فرم مناسب‌تر در ناحیه ابرو کمک کند.",
 
-"خطوط دور چشم":{
- text:"خطوط کنار چشم یا پنجه‌کلاغی معمولاً هنگام خندیدن یا جمع شدن چشم‌ها بیشتر دیده می‌شوند. بوتاکس یکی از روش‌های رایج برای کاهش موقت این خطوط است.",
- tags:["بوتاکس","پنجه کلاغی","دور چشم"]
-},
+    tags:[
+      "بوتاکس",
+      "خطوط پیشانی",
+      "فرم‌دهی ابرو",
+      "لیفت ظاهری ابرو"
+    ],
 
-"بینی":{
- text:"برخی خطوط یا تغییرات ظاهری بینی ممکن است با فعالیت عضلات یا ساختار بافتی مرتبط باشند. روش مناسب به علت و آناتومی فرد بستگی دارد.",
- tags:["آنالیز بینی","بوتاکس","ارزیابی تخصصی"]
-},
+    photos:[
+      "حالت عادی",
+      "ابروها به سمت بالا",
+      "حالت اخم",
+      "حالت خنده"
+    ]
 
-"گونه":{
- text:"گونه نقش مهمی در فرم و تناسب صورت دارد. در برخی افراد فیلر می‌تواند برای اصلاح حجم یا کانتور گونه استفاده شود.",
- tags:["فیلر","کانتور صورت","گونه"]
-},
+  },
 
-"خط خنده":{
- text:"خط خنده یا چین نازولبیال می‌تواند تحت تأثیر سن، کاهش حجم، فرم صورت و عوامل مختلف ایجاد شود. درمان مناسب همیشه صرفاً به پر کردن خود خط محدود نمی‌شود.",
- tags:["فیلر","خط خنده","گونه","آنالیز صورت"]
-},
 
-"لب":{
- text:"فیلرهای هیالورونیک اسید در برخی افراد برای افزایش حجم یا اصلاح فرم لب استفاده می‌شوند. نتیجه طبیعی به مقدار مناسب، محل تزریق و آناتومی فرد وابسته است.",
- tags:["فیلر لب","هیالورونیک اسید","فرم طبیعی"]
-},
+  brow: {
 
-"چانه":{
- text:"فرم چانه می‌تواند روی تناسب نیمه پایینی صورت و نمای جانبی تأثیر داشته باشد. در برخی افراد فیلر چانه برای اصلاح کانتور استفاده می‌شود.",
- tags:["فیلر","چانه","کانتورینگ"]
-},
+    title:"ابروها",
 
-"خط فک":{
- text:"خط فک به ساختار استخوانی، حجم بافت نرم و وضعیت پوست بستگی دارد. روش مناسب برای کانتور فک پس از ارزیابی آناتومی انتخاب می‌شود.",
- tags:["کانتور فک","فیلر","آنالیز صورت"]
-}
+    text:
+    "فرم ابرو و میزان فعالیت عضلات اطراف آن می‌تواند در ظاهر کلی قسمت بالایی صورت تأثیر داشته باشد. انتخاب روش مناسب به فرم صورت و وضعیت عضلات بستگی دارد.",
+
+    tags:[
+      "بوتاکس",
+      "فرم ابرو",
+      "ارزیابی عضلات"
+    ],
+
+    photos:[
+      "حالت عادی",
+      "ابروها به سمت بالا",
+      "حالت اخم",
+      "حالت خنده"
+    ]
+
+  },
+
+
+  frown: {
+
+    title:"خط اخم",
+
+    text:
+    "خط اخم معمولاً هنگام فعالیت عضلات بین ابروها بیشتر مشخص می‌شود. بوتاکس یکی از روش‌های رایج برای کاهش موقت فعالیت این عضلات و کاهش ظاهر خطوط این ناحیه است.",
+
+    tags:[
+      "بوتاکس",
+      "خط اخم"
+    ],
+
+    photos:[
+      "حالت عادی",
+      "ابروها به سمت بالا",
+      "حالت اخم"
+    ]
+
+  },
+
+
+  crow: {
+
+    title:"پنجه‌کلاغی / دور چشم",
+
+    text:
+    "خطوط کنار چشم یا پنجه‌کلاغی معمولاً هنگام خندیدن بیشتر دیده می‌شوند. بوتاکس یکی از روش‌های رایج برای کاهش موقت ظاهر این خطوط است.",
+
+    tags:[
+      "بوتاکس",
+      "پنجه‌کلاغی",
+      "دور چشم"
+    ],
+
+    photos:[
+      "حالت عادی",
+      "حالت خنده"
+    ]
+
+  },
+
+
+  cheek: {
+
+    title:"گونه",
+
+    text:
+    "روش اصلاحی پیشنهادی برای فرم‌دهی و حجم‌دهی گونه، تزریق فیلر است. این روش برای افرادی که گونه پرتر می‌خواهند، تمایل دارند کات گونه مشخص‌تر شود یا بهبود ظاهر خط خنده را می‌خواهند، می‌تواند مورد بررسی قرار گیرد.",
+
+    tags:[
+      "فیلر",
+      "فرم‌دهی گونه",
+      "حجم‌دهی",
+      "کات گونه"
+    ],
+
+    photos:[
+      "رخ",
+      "نیم‌رخ",
+      "سه‌رخ"
+    ]
+
+  },
+
+
+  smileline: {
+
+    title:"خط خنده",
+
+    text:
+    "خط خنده می‌تواند تحت تأثیر کاهش وزن و لاغر شدن، افزایش سن و شل شدن پوست صورت ایجاد یا پررنگ‌تر شود. یکی از روش‌های اصلاحی، تزریق فیلر در ناحیه گونه و خط خنده است. تقویت گونه می‌تواند به بهبود ظاهر این ناحیه کمک کند و در برخی موارد امکان استفاده از حجم کمتر فیلر در خود خط خنده را فراهم کند.",
+
+    tags:[
+      "فیلر",
+      "خط خنده",
+      "گونه"
+    ],
+
+    photos:[
+      "رخ",
+      "نیم‌رخ",
+      "سه‌رخ"
+    ]
+
+  },
+
+
+  jaw: {
+
+    title:"زاویه فک",
+
+    text:
+    "تزریق فیلر می‌تواند برای افرادی که زاویه فک گرد دارند یا زاویه فک آن‌ها به اندازه کافی مشخص نیست، مورد بررسی قرار گیرد. این روش می‌تواند به ایجاد فرم و زاویه مناسب‌تر صورت و جلوگیری از گرد یا پرتر دیده شدن فرم صورت کمک کند.",
+
+    tags:[
+      "فیلر",
+      "زاویه فک",
+      "کانتور صورت"
+    ],
+
+    photos:[
+      "رخ",
+      "نیم‌رخ",
+      "سه‌رخ"
+    ]
+
+  },
+
+
+  chin: {
+
+    title:"چانه",
+
+    text:
+    "تزریق فیلر می‌تواند برای اصلاح برخی دفرمیتی‌های ظاهری، عدم تقارن، چانه کوچک و همچنین اصلاح فرم چانه در افرادی که از شکل آن رضایت ندارند، مورد بررسی قرار گیرد.",
+
+    tags:[
+      "فیلر",
+      "چانه",
+      "اصلاح فرم",
+      "تقارن"
+    ],
+
+    photos:[
+      "رخ",
+      "نیم‌رخ",
+      "نمای نزدیک از چانه"
+    ]
+
+  },
+
+
+  lips: {
+
+    title:"لب",
+
+    text:
+    "تزریق فیلر می‌تواند برای لب‌های کوچک، اصلاح برخی ناهماهنگی‌های ظاهری، افزایش حجم، ایجاد فرم دلخواه و اصلاح ظاهر خط لب در افرادی که از فرم آن رضایت ندارند، مورد بررسی قرار گیرد.",
+
+    tags:[
+      "فیلر لب",
+      "افزایش حجم",
+      "اصلاح فرم لب"
+    ],
+
+    photos:[
+      "رخ",
+      "نیم‌رخ"
+    ]
+
+  },
+
+
+  nose: {
+
+    title:"بینی",
+
+    text:
+    "بررسی ناحیه بینی باید بر اساس فرم و ساختار صورت انجام شود. روش مناسب و امکان اصلاح به شرایط و ویژگی‌های هر فرد بستگی دارد.",
+
+    tags:[
+      "آنالیز بینی",
+      "ارزیابی تخصصی"
+    ],
+
+    photos:[
+      "رخ",
+      "نیم‌رخ",
+      "سه‌رخ"
+    ]
+
+  }
 
 };
 
-function showArea(area){
 
- const result=document.getElementById("result");
- const title=document.getElementById("resultTitle");
- const text=document.getElementById("resultText");
- const tags=document.getElementById("tags");
+const treatments = {
 
- title.innerText=area;
+  migraine: {
 
- if(data[area]){
-   text.innerText=data[area].text;
+    title:"بوتاکس میگرن",
 
-   tags.innerHTML="";
+    text:
+    "بوتاکس در برخی افراد برای پیشگیری از میگرن مزمن مورد استفاده قرار می‌گیرد. انتخاب این روش و نحوه انجام آن باید بر اساس شرایط و سابقه فرد بررسی شود."
 
-   data[area].tags.forEach(function(tag){
-     const span=document.createElement("span");
-     span.className="tag";
-     span.innerText=tag;
-     tags.appendChild(span);
-   });
- }
+  },
 
- result.style.display="block";
 
- setTimeout(function(){
-   result.scrollIntoView({
-     behavior:"smooth",
-     block:"center"
-   });
- },100);
+  underarm: {
+
+    title:"بوتاکس تعریق زیر بغل",
+
+    text:
+    "بوتاکس می‌تواند با کاهش موقت فعالیت غدد عرق در ناحیه تزریق، میزان تعریق زیر بغل را کاهش دهد و برای افرادی که تعریق بیش از حد دارند مورد بررسی قرار گیرد."
+
+  }
+
+};
+
+
+function showArea(area,element){
+
+  document
+    .querySelectorAll(".hotspot")
+    .forEach(function(item){
+
+      item.classList.remove("active");
+
+    });
+
+  element.classList.add("active");
+
+  const item=data[area];
+
+  document.getElementById("resultTitle").innerText=
+    item.title;
+
+  document.getElementById("resultText").innerText=
+    item.text;
+
+  const tags=document.getElementById("tags");
+
+  tags.innerHTML="";
+
+  item.tags.forEach(function(tag){
+
+    const span=document.createElement("span");
+
+    span.className="tag";
+
+    span.innerText=tag;
+
+    tags.appendChild(span);
+
+  });
+
+
+  let photoHTML="";
+
+  if(item.photos){
+
+    photoHTML=`
+
+      <div class="photo-box">
+
+        <div class="section-title">
+          عکس‌های موردنیاز
+        </div>
+
+        <ul>
+
+          ${item.photos.map(function(photo){
+
+            return `<li>${photo}</li>`;
+
+          }).join("")}
+
+        </ul>
+
+      </div>
+
+    `;
+
+  }
+
+  document.getElementById("photoInfo").innerHTML=
+    photoHTML;
+
+  document.getElementById("result").style.display=
+    "block";
+
+
+  document.getElementById("selectedArea").value=
+    item.title;
+
+
+  setTimeout(function(){
+
+    document.getElementById("result")
+      .scrollIntoView({
+
+        behavior:"smooth",
+        block:"center"
+
+      });
+
+  },100);
+
 }
 
 
-function analysisInfo(){
+function showTreatment(type){
 
- const box=document.getElementById("analysis");
+  const item=treatments[type];
 
- box.style.display="block";
+  document.getElementById("treatmentTitle").innerText=
+    item.title;
 
- setTimeout(function(){
-   box.scrollIntoView({
-     behavior:"smooth",
-     block:"center"
-   });
- },100);
+  document.getElementById("treatmentText").innerText=
+    item.text;
+
+  document.getElementById("treatmentResult").style.display=
+    "block";
+
+
+  setTimeout(function(){
+
+    document.getElementById("treatmentResult")
+      .scrollIntoView({
+
+        behavior:"smooth",
+        block:"center"
+
+      });
+
+  },100);
+
 }
 
 
-function consult(){
+function openConsultation(){
 
- alert(
- "برای درخواست مشاوره، اطلاعات شما شامل نام، شماره تماس، ناحیه موردنظر و در صورت نیاز عکس جهت بررسی اولیه دریافت خواهد شد."
- );
+  document.getElementById("consultationCard")
+    .scrollIntoView({
+
+      behavior:"smooth",
+      block:"start"
+
+    });
 
 }
+
+
+function submitConsultation(){
+
+  const name=
+    document.getElementById("name").value.trim();
+
+  const phone=
+    document.getElementById("phone").value.trim();
+
+  const area=
+    document.getElementById("selectedArea").value.trim();
+
+  if(!name || !phone){
+
+    alert(
+      "لطفاً نام و شماره موبایل را وارد کنید."
+    );
+
+    return;
+
+  }
+
+
+  const consultation={
+
+    name:name,
+
+    phone:phone,
+
+    area:area,
+
+    message:
+      document.getElementById("message").value.trim(),
+
+    date:
+      new Date().toLocaleString("fa-IR")
+
+  };
+
+
+  console.log(consultation);
+
+
+  alert(
+    "درخواست شما ثبت شد. در مرحله بعد اتصال این فرم به سیستم دریافت درخواست‌ها را فعال می‌کنیم."
+  );
+
+}
+
 
 </script>
 
