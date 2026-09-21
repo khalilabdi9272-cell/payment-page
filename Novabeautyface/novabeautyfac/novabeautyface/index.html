@@ -395,6 +395,9 @@ function submitConsultation(){
   const message =
     document.getElementById("message").value.trim();
 
+  const photosInput =
+    document.getElementById("photos");
+
   if(!name || !phone || !area){
 
     alert(
@@ -402,7 +405,6 @@ function submitConsultation(){
     );
 
     return;
-
   }
 
   const submitBtn =
@@ -414,58 +416,103 @@ function submitConsultation(){
   const WEB_APP_URL =
     "https://script.google.com/macros/s/AKfycbzNPyfqi9lzCfoTZCsjF6S-lYESxVLpYNE3aDqy9lX7I4Jzbp3tjxxlSgbk0mn0S2-wdw/exec";
 
-  const data = {
+  const photoPromises = [];
 
-    name: name,
+  for(let i = 0; i < photosInput.files.length; i++){
 
-    phone: phone,
+    const file = photosInput.files[i];
 
-    area: area,
+    photoPromises.push(
+      new Promise((resolve, reject) => {
 
-    message: message
+        const reader = new FileReader();
 
-  };
+        reader.onload = function(){
 
-  fetch(WEB_APP_URL, {
+          const base64 =
+            reader.result.split(",")[1];
 
-    method:"POST",
+          resolve({
+            name: file.name,
+            type: file.type,
+            data: base64
+          });
 
-    body:JSON.stringify(data)
+        };
 
-  })
+        reader.onerror = reject;
 
-  .then(response => response.text())
+        reader.readAsDataURL(file);
 
-  .then(result => {
-
-    alert(
-      "درخواست شما با موفقیت ارسال شد."
+      })
     );
 
-    document.getElementById("name").value = "";
-    document.getElementById("phone").value = "";
-    document.getElementById("area").value = "";
-    document.getElementById("message").value = "";
+  }
 
-    document.getElementById("photos").value = "";
+  Promise.all(photoPromises)
 
-    submitBtn.disabled = false;
-    submitBtn.innerText = "ارسال درخواست مشاوره";
+    .then(function(photos){
 
-  })
+      const data = {
 
-  .catch(error => {
+        name: name,
 
-    alert(
-      "ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید."
-    );
+        phone: phone,
 
-    submitBtn.disabled = false;
-    submitBtn.innerText = "ارسال درخواست مشاوره";
+        area: area,
 
-  });
+        message: message,
 
-}
+        photos: photos
+
+      };
+
+      return fetch(WEB_APP_URL, {
+
+        method:"POST",
+
+        body:JSON.stringify(data)
+
+      });
+
+    })
+
+    .then(function(response){
+
+      return response.text();
+
+    })
+
+    .then(function(result){
+
+      alert(
+        "درخواست شما با موفقیت ارسال شد."
+      );
+
+      document.getElementById("name").value = "";
+      document.getElementById("phone").value = "";
+      document.getElementById("area").value = "";
+      document.getElementById("message").value = "";
+      document.getElementById("photos").value = "";
+
+      submitBtn.disabled = false;
+      submitBtn.innerText = "ارسال درخواست مشاوره";
+
+    })
+
+    .catch(function(error){
+
+      alert(
+        "ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید."
+      );
+
+      submitBtn.disabled = false;
+      submitBtn.innerText = "ارسال درخواست مشاوره";
+
+    });
+
+  }
+      
 
 </script>
 
