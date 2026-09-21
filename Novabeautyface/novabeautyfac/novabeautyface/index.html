@@ -148,6 +148,10 @@ body{
   font-size:15px;
 }
 
+.submit:disabled{
+  opacity:.6;
+}
+
 .note{
   text-align:center;
   font-size:12px;
@@ -215,7 +219,7 @@ body{
 
     <input id="photos" type="file" accept="image/*" multiple>
 
-    <button class="submit" onclick="submitConsultation()">
+    <button class="submit" id="submitBtn" onclick="submitConsultation()">
       ارسال درخواست مشاوره
     </button>
 
@@ -278,7 +282,7 @@ const data = {
 };
 
 /* =========================
-   مختصات نهایی تنظیم‌شده توسط شما
+   مختصات نقاط
 ========================= */
 
 const positions = {
@@ -357,7 +361,7 @@ document.querySelectorAll(".hotspot").forEach(point => {
 });
 
 /* =========================
-   فرم مشاوره
+   باز کردن فرم
 ========================= */
 
 function openConsult(area){
@@ -374,7 +378,7 @@ function openConsult(area){
 }
 
 /* =========================
-   ثبت درخواست
+   ارسال درخواست به تلگرام
 ========================= */
 
 function submitConsultation(){
@@ -388,6 +392,9 @@ function submitConsultation(){
   const area =
     document.getElementById("area").value;
 
+  const message =
+    document.getElementById("message").value.trim();
+
   if(!name || !phone || !area){
 
     alert(
@@ -398,10 +405,65 @@ function submitConsultation(){
 
   }
 
-  alert(
-    "درخواست شما ثبت شد.\n\n" +
-    "اتصال مستقیم درخواست‌ها به تلگرام در مرحله بعد اضافه می‌شود."
-  );
+  const submitBtn =
+    document.getElementById("submitBtn");
+
+  submitBtn.disabled = true;
+  submitBtn.innerText = "در حال ارسال...";
+
+  const WEB_APP_URL =
+    "https://script.google.com/macros/s/AKfycbzNPyfqi9lzCfoTZCsjF6S-lYESxVLpYNE3aDqy9lX7I4Jzbp3tjxxlSgbk0mn0S2-wdw/exec";
+
+  const data = {
+
+    name: name,
+
+    phone: phone,
+
+    area: area,
+
+    message: message
+
+  };
+
+  fetch(WEB_APP_URL, {
+
+    method:"POST",
+
+    body:JSON.stringify(data)
+
+  })
+
+  .then(response => response.text())
+
+  .then(result => {
+
+    alert(
+      "درخواست شما با موفقیت ارسال شد."
+    );
+
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("area").value = "";
+    document.getElementById("message").value = "";
+
+    document.getElementById("photos").value = "";
+
+    submitBtn.disabled = false;
+    submitBtn.innerText = "ارسال درخواست مشاوره";
+
+  })
+
+  .catch(error => {
+
+    alert(
+      "ارسال درخواست انجام نشد. لطفاً دوباره تلاش کنید."
+    );
+
+    submitBtn.disabled = false;
+    submitBtn.innerText = "ارسال درخواست مشاوره";
+
+  });
 
 }
 
