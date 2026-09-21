@@ -186,11 +186,38 @@ body{
 
   </div>
 
+  <!-- خدمات ویژه -->
+
+  <div class="info">
+
+    <h2>خدمات ویژه</h2>
+
+    <p>
+      علاوه بر نواحی صورت، می‌توانید درباره خدمات زیر نیز اطلاعات دریافت کنید.
+    </p>
+
+    <button
+      class="consult-btn"
+      onclick="openConsult('بوتاکس میگرن')">
+      🧠 بوتاکس میگرن
+    </button>
+
+    <button
+      class="consult-btn"
+      onclick="openConsult('بوتاکس تعریق زیر بغل')">
+      💧 بوتاکس تعریق زیر بغل
+    </button>
+
+  </div>
+
   <div class="info" id="info">
+
     <h2>یک ناحیه را انتخاب کنید</h2>
+
     <p>
       برای مشاهده اطلاعات هر ناحیه، روی نقطه مربوط به آن لمس کنید.
     </p>
+
   </div>
 
   <div class="form" id="consultForm">
@@ -202,7 +229,9 @@ body{
     <input id="phone" type="tel" placeholder="شماره موبایل">
 
     <select id="area">
+
       <option value="">ناحیه موردنظر</option>
+
       <option>پیشانی و ابروها</option>
       <option>خط اخم</option>
       <option>پنجه‌کلاغی / دور چشم</option>
@@ -213,14 +242,26 @@ body{
       <option>لب</option>
       <option>بوتاکس میگرن</option>
       <option>بوتاکس تعریق زیر بغل</option>
+
     </select>
 
-    <textarea id="message" placeholder="توضیحات یا درخواست شما"></textarea>
+    <textarea
+      id="message"
+      placeholder="توضیحات یا درخواست شما"></textarea>
 
-    <input id="photos" type="file" accept="image/*" multiple>
+    <input
+      id="photos"
+      type="file"
+      accept="image/*"
+      multiple>
 
-    <button class="submit" id="submitBtn" onclick="submitConsultation()">
+    <button
+      class="submit"
+      id="submitBtn"
+      onclick="submitConsultation()">
+
       ارسال درخواست مشاوره
+
     </button>
 
   </div>
@@ -277,6 +318,16 @@ const data = {
   lips:{
     title:"لب",
     text:"فیلر لب می‌تواند برای افزایش حجم، اصلاح برخی ناهماهنگی‌های ظاهری، اصلاح اختلاف حجم دو لب، ایجاد فرم دلخواه و مشخص‌تر شدن خط لب استفاده شود."
+  },
+
+  migraine:{
+    title:"بوتاکس میگرن",
+    text:"در برخی افراد مبتلا به میگرن مزمن، تزریق بوتاکس می‌تواند به کاهش تعداد و شدت روزهای همراه با سردرد کمک کند. این روش برای همه انواع سردرد مناسب نیست و انتخاب آن به شرایط فرد و تشخیص مناسب بستگی دارد."
+  },
+
+  underarm:{
+    title:"بوتاکس تعریق زیر بغل",
+    text:"بوتاکس می‌تواند با کاهش موقت فعالیت غدد عرق، به کاهش تعریق بیش‌ازحد در ناحیه زیر بغل کمک کند. اثر آن موقتی است و معمولاً پس از مدتی نیاز به تکرار درمان وجود دارد."
   }
 
 };
@@ -351,7 +402,9 @@ document.querySelectorAll(".hotspot").forEach(point => {
       <button
         class="consult-btn"
         onclick="openConsult('${item.title}')">
+
         درخواست مشاوره برای این ناحیه
+
       </button>
 
     `;
@@ -411,6 +464,7 @@ function submitConsultation(){
     document.getElementById("submitBtn");
 
   submitBtn.disabled = true;
+
   submitBtn.innerText = "در حال ارسال...";
 
   const WEB_APP_URL =
@@ -423,6 +477,7 @@ function submitConsultation(){
     const file = photosInput.files[i];
 
     photoPromises.push(
+
       new Promise((resolve, reject) => {
 
         const reader = new FileReader();
@@ -433,9 +488,13 @@ function submitConsultation(){
             reader.result.split(",")[1];
 
           resolve({
+
             name: file.name,
+
             type: file.type,
+
             data: base64
+
           });
 
         };
@@ -445,6 +504,7 @@ function submitConsultation(){
         reader.readAsDataURL(file);
 
       })
+
     );
 
   }
@@ -490,13 +550,19 @@ function submitConsultation(){
       );
 
       document.getElementById("name").value = "";
+
       document.getElementById("phone").value = "";
+
       document.getElementById("area").value = "";
+
       document.getElementById("message").value = "";
+
       document.getElementById("photos").value = "";
 
       submitBtn.disabled = false;
-      submitBtn.innerText = "ارسال درخواست مشاوره";
+
+      submitBtn.innerText =
+        "ارسال درخواست مشاوره";
 
     })
 
@@ -507,12 +573,13 @@ function submitConsultation(){
       );
 
       submitBtn.disabled = false;
-      submitBtn.innerText = "ارسال درخواست مشاوره";
+
+      submitBtn.innerText =
+        "ارسال درخواست مشاوره";
 
     });
 
-  }
-      
+}
 
 </script>
 
